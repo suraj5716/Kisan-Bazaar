@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScreenTab } from '../../types';
 import { ASSETS } from '../../data/mockData';
 import {
@@ -12,7 +12,11 @@ import {
   BarChart3,
   Handshake,
   Brain,
-  MapPin
+  MapPin,
+  X,
+  ShieldCheck,
+  Building2,
+  LogIn
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -20,6 +24,13 @@ interface LandingPageProps {
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handlePortalLogin = (tab: ScreenTab) => {
+    setShowLoginModal(false);
+    onNavigate(tab);
+  };
+
   return (
     <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30] flex flex-col font-sans">
       {/* Top Navbar */}
@@ -45,20 +56,152 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               Home
             </button>
             <button
-              onClick={() => onNavigate('farmer-dashboard')}
+              onClick={() => setShowLoginModal(true)}
               className="text-sm font-semibold text-[#42493e] hover:text-[#0b1c30] transition-colors"
             >
-              Login
+              Login (Primary Hub)
             </button>
             <button
-              onClick={() => onNavigate('farmer-dashboard')}
-              className="text-sm font-bold bg-[#154212] hover:bg-[#2d5a27] text-white px-4 py-2 rounded-xl transition-all shadow-xs hover:shadow-md"
+              onClick={() => setShowLoginModal(true)}
+              className="text-sm font-bold bg-[#154212] hover:bg-[#2d5a27] text-white px-4 py-2 rounded-xl transition-all shadow-xs hover:shadow-md cursor-pointer"
             >
-              Get Started
+              Access Portals
             </button>
           </nav>
         </div>
       </header>
+
+      {/* Primary Hub Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white w-full max-w-xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+            <div className="p-6 bg-[#eff4ff] border-b border-[#c2c9bb]/40 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-[#154212] text-white flex items-center justify-center shadow-xs">
+                  <LogIn className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-[#0b1c30]">Primary Hub • Select Credentials</h3>
+                  <p className="text-xs text-[#42493e]">Choose your portal access role to sign in</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-3.5">
+              {/* Role 1: Farmer */}
+              <div
+                onClick={() => handlePortalLogin('farmer-dashboard')}
+                className="p-4 rounded-2xl border-2 border-emerald-500/40 hover:border-[#154212] bg-[#eff4ff]/60 hover:bg-[#eff4ff] transition-all cursor-pointer flex items-center justify-between group shadow-xs hover:shadow-sm"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-[#2d5a27] text-white flex items-center justify-center shadow-xs">
+                    <Tractor className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-sm text-[#0b1c30]">Farmer Portal</h4>
+                      <span className="text-[10px] font-bold bg-[#bcf0ae]/80 text-[#154212] px-2 py-0.5 rounded-full">
+                        Jai Kumar
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#42493e] mt-0.5">
+                      Overview, My lots · 4, Net Realization, Price forecast, Sale timing, Buyer matches, Offers · 1, Logistics
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-[#2d5a27] group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              </div>
+
+              {/* Role 2: FPO */}
+              <div
+                onClick={() => handlePortalLogin('fpo-dashboard')}
+                className="p-4 rounded-2xl border border-slate-200 hover:border-[#485066] bg-white hover:bg-slate-50 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-[#485066] text-white flex items-center justify-center shadow-xs">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-sm text-[#0b1c30]">FPO &amp; Aggregators Portal</h4>
+                      <span className="text-[10px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">
+                        Sahyadri FPO
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#42493e] mt-0.5">
+                      Pool member harvest, negotiate bulk contracts, member payout ledgers
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-slate-500 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              </div>
+
+              {/* Role 3: Buyer */}
+              <div
+                onClick={() => handlePortalLogin('buyer-dashboard')}
+                className="p-4 rounded-2xl border border-slate-200 hover:border-[#904d00] bg-white hover:bg-slate-50 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-[#fe932c] text-white flex items-center justify-center shadow-xs">
+                    <Store className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-sm text-[#0b1c30]">Procurement Buyer Portal</h4>
+                      <span className="text-[10px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                        AgriCorp India
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#42493e] mt-0.5">
+                      Post procurement requirements, browse available lots, automated bids
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-slate-500 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              </div>
+
+              {/* Role 4: Admin Hub */}
+              <div
+                onClick={() => handlePortalLogin('admin-dashboard')}
+                className="p-4 rounded-2xl border border-slate-200 hover:border-[#154212] bg-white hover:bg-slate-50 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-[#154212] text-white flex items-center justify-center shadow-xs">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-sm text-[#0b1c30]">Admin Hub &amp; Overview</h4>
+                      <span className="text-[10px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">
+                        System Admin
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#42493e] mt-0.5">
+                      Statewide price trends, mandi liquidity heatmap, telemetry &amp; distress alerts
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-slate-500 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              </div>
+            </div>
+
+            <div className="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200/60"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Content */}
       <main className="w-full pt-16 flex-1">

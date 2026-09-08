@@ -3,9 +3,17 @@ export type ScreenTab =
   | 'farmer-dashboard'
   | 'fpo-dashboard'
   | 'buyer-dashboard'
-  | 'admin-dashboard'
+  | 'admin-dashboard';
+
+export type FarmerSubTab =
+  | 'overview'
+  | 'my-lots'
   | 'market-intelligence'
-  | 'price-prediction';
+  | 'price-forecast'
+  | 'sale-timing'
+  | 'buyer-matches'
+  | 'offers'
+  | 'logistics';
 
 export interface CropLot {
   id: string;
@@ -65,6 +73,7 @@ export interface MandiComparisonItem {
   demand?: 'HIGH' | 'MED' | 'LOW';
   lastUpdated?: string;
   isDirect?: boolean;
+  isBestChoice?: boolean;
   subtext?: string;
 }
 

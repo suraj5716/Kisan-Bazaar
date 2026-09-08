@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   ScreenTab,
+  FarmerSubTab,
   CropLot,
   BuyerRequirement,
   SmartMatch,
@@ -29,6 +30,7 @@ import { LotDetailsModal } from './components/modals/LotDetailsModal';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<ScreenTab>('farmer-dashboard');
+  const [farmerSubTab, setFarmerSubTab] = useState<FarmerSubTab>('overview');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [globalSearchQuery, setGlobalSearchQuery] = useState('');
 
@@ -71,7 +73,6 @@ export default function App() {
   };
 
   const handlePlaceOffer = (lotTitle: string, offerRate: number) => {
-    // Adds to active negotiations for demonstration
     const newNeg: NegotiationItem = {
       id: `NEG-${Date.now().toString().slice(-4)}`,
       cropAndVolume: lotTitle,
@@ -94,6 +95,10 @@ export default function App() {
       <Sidebar
         currentTab={currentTab}
         onSelectTab={(tab) => setCurrentTab(tab)}
+        farmerSubTab={farmerSubTab}
+        onSelectFarmerSubTab={(sub) => setFarmerSubTab(sub)}
+        lotsCount={cropLots.length}
+        offersCount={1}
         isOpenMobile={isMobileSidebarOpen}
         onCloseMobile={() => setIsMobileSidebarOpen(false)}
       />
@@ -114,6 +119,8 @@ export default function App() {
           {currentTab === 'farmer-dashboard' && (
             <FarmerDashboard
               cropLots={cropLots}
+              subTab={farmerSubTab}
+              onSelectSubTab={setFarmerSubTab}
               onOpenAddLot={() => setIsAddLotOpen(true)}
               onViewLotDetails={(lot) =>
                 setSelectedLotForModal({
@@ -144,20 +151,12 @@ export default function App() {
             />
           )}
 
-          {currentTab === 'market-intelligence' && (
-            <MarketIntelligence onNavigate={(tab) => setCurrentTab(tab)} />
-          )}
-
           {currentTab === 'admin-dashboard' && (
             <AdminHub onNavigate={(tab) => setCurrentTab(tab)} />
           )}
 
           {currentTab === 'fpo-dashboard' && (
             <FpoPortal onNavigate={(tab) => setCurrentTab(tab)} />
-          )}
-
-          {currentTab === 'price-prediction' && (
-            <PricePredictionView onNavigate={(tab) => setCurrentTab(tab)} />
           )}
         </main>
       </div>

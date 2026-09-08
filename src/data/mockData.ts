@@ -62,6 +62,52 @@ export const INITIAL_CROP_LOTS: CropLot[] = [
     location: 'Karnal, HR',
     harvestDate: 'Sep 2024',
     moisture: '11.0%'
+  },
+  {
+    id: '#L-4060',
+    crop: 'Mustard',
+    grade: 'Pusa Bold (>42% Oil)',
+    quantity: '60 Quintals',
+    quantityVal: 60,
+    bestOffer: '₹3,42,000',
+    bestOfferRate: '₹5,700/q',
+    status: 'Published',
+    farmerName: 'Jai Kumar',
+    location: 'Karnal, HR',
+    harvestDate: 'Oct 2024',
+    moisture: '8.5%'
+  }
+];
+
+export interface FarmerIncomingOffer {
+  id: string;
+  buyerName: string;
+  crop: string;
+  lotId: string;
+  quantity: string;
+  offeredRate: number;
+  askingRate: number;
+  totalValuation: string;
+  deliveryLocation: string;
+  paymentTerms: string;
+  expiresIn: string;
+  status: 'Pending Review' | 'Accepted' | 'Declined' | 'Countered';
+}
+
+export const INITIAL_FARMER_OFFERS: FarmerIncomingOffer[] = [
+  {
+    id: 'OFF-1',
+    buyerName: 'ITC Agri Procurement',
+    crop: 'Wheat Grade A (Lok-1)',
+    lotId: '#L-4092',
+    quantity: '150 Quintals',
+    offeredRate: 2740,
+    askingRate: 2750,
+    totalValuation: '₹4,11,000',
+    deliveryLocation: 'Narela Mandi Warehouse',
+    paymentTerms: '100% Escrow on dock weighment',
+    expiresIn: '14 hrs',
+    status: 'Pending Review'
   }
 ];
 

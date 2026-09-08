@@ -12,16 +12,113 @@ import {
   ShieldCheck,
   BarChart3,
   Flame,
-  ArrowUpRight
+  ArrowUpRight,
+  Download,
+  FileSpreadsheet
 } from 'lucide-react';
 
 interface AdminHubProps {
   onNavigate: (tab: ScreenTab) => void;
 }
 
+interface RealizationMatrixRow {
+  region: string;
+  crop: string;
+  supply: string;
+  demand: string;
+  mandiPrice: string;
+  directBuyerPrice: string;
+  farmerPremium: string;
+}
+
+const REGIONAL_MATRIX_DATA: RealizationMatrixRow[] = [
+  {
+    region: 'Punjab - Ludhiana',
+    crop: 'Wheat',
+    supply: '1850 T',
+    demand: '2400 T',
+    mandiPrice: '₹2450/q',
+    directBuyerPrice: '₹2580/q',
+    farmerPremium: '+₹130/q (5%)'
+  },
+  {
+    region: 'Punjab - Tarn Taran',
+    crop: 'Paddy',
+    supply: '2200 T',
+    demand: '3100 T',
+    mandiPrice: '₹3820/q',
+    directBuyerPrice: '₹3950/q',
+    farmerPremium: '+₹130/q (3%)'
+  },
+  {
+    region: 'Haryana - Karnal',
+    crop: 'Wheat',
+    supply: '1400 T',
+    demand: '2800 T',
+    mandiPrice: '₹2600/q',
+    directBuyerPrice: '₹2680/q',
+    farmerPremium: '+₹80/q (3%)'
+  },
+  {
+    region: 'MP - Indore',
+    crop: 'Soybean',
+    supply: '3500 T',
+    demand: '4200 T',
+    mandiPrice: '₹4720/q',
+    directBuyerPrice: '₹4890/q',
+    farmerPremium: '+₹170/q (4%)'
+  },
+  {
+    region: 'Maharashtra - Nashik',
+    crop: 'Onion',
+    supply: '4800 T',
+    demand: '5000 T',
+    mandiPrice: '₹2650/q',
+    directBuyerPrice: '₹2780/q',
+    farmerPremium: '+₹130/q (5%)'
+  }
+];
+
 export const AdminHub: React.FC<AdminHubProps> = ({ onNavigate }) => {
   const [regionFilter, setRegionFilter] = useState<'state' | 'district'>('state');
   const [heatFilter, setHeatFilter] = useState<'supply' | 'demand'>('supply');
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+
+  const handleDownloadCSV = () => {
+    const headers = [
+      'REGION / DISTRICT',
+      'CROP',
+      'SUPPLY (TONS)',
+      'DEMAND (TONS)',
+      'MANDI PRICE',
+      'DIRECT BUYER PRICE',
+      'FARMER PREMIUM'
+    ];
+
+    const rows = REGIONAL_MATRIX_DATA.map((r) => [
+      `"${r.region}"`,
+      `"${r.crop}"`,
+      `"${r.supply}"`,
+      `"${r.demand}"`,
+      `"${r.mandiPrice}"`,
+      `"${r.directBuyerPrice}"`,
+      `"${r.farmerPremium}"`
+    ]);
+
+    const csvString = [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `Regional_Price_Realization_Matrix_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    setDownloadSuccess(true);
+    setTimeout(() => setDownloadSuccess(false), 3000);
+  };
 
   return (
     <div className="space-y-6 pb-12">
@@ -201,48 +298,78 @@ export const AdminHub: React.FC<AdminHubProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Statewide Price Trends */}
-          <div className="bg-white rounded-2xl border border-[#c2c9bb]/30 shadow-xs p-5">
-            <div className="flex items-center justify-between mb-4">
+          {/* Regional Supply, Demand & Mandi vs Direct Buyer Price Realization Matrix */}
+          <div className="bg-white rounded-2xl border border-[#c2c9bb]/30 shadow-xs p-5 overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
               <div>
-                <h3 className="font-bold text-base text-[#0b1c30]">Statewide Price Trends</h3>
-                <p className="text-xs text-[#42493e]">Comparative analysis vs previous month average</p>
+                <h3 className="font-bold text-sm sm:text-base text-[#0b1c30] tracking-tight">
+                  Regional Supply, Demand &amp; Mandi vs Direct Buyer Price Realization Matrix
+                </h3>
+                <p className="text-xs text-[#42493e] mt-0.5">
+                  District-level volume liquidity balance and direct procurement price spread
+                </p>
               </div>
-              <span className="text-xs font-bold text-slate-500">Last 30 Days</span>
+
+              <div className="flex items-center gap-2">
+                {downloadSuccess && (
+                  <span className="text-[11px] font-bold text-[#154212] flex items-center gap-1 bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-200">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    CSV Exported!
+                  </span>
+                )}
+                <button
+                  id="download-matrix-btn"
+                  onClick={handleDownloadCSV}
+                  className="px-3.5 py-2 bg-[#eff4ff] hover:bg-[#2d5a27] text-[#154212] hover:text-white rounded-xl text-xs font-bold transition-all border border-[#c2c9bb]/40 shadow-2xs flex items-center gap-2 cursor-pointer"
+                  title="Download Regional Realization Matrix as CSV"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Matrix CSV</span>
+                </button>
+              </div>
             </div>
 
-            <div className="space-y-3.5">
-              {[
-                { crop: 'Wheat (Sharbati)', current: 2450, prev: 2320, pct: '+5.6%' },
-                { crop: 'Soybean (Yellow)', current: 4300, prev: 4180, pct: '+2.8%' },
-                { crop: 'Basmati Rice (Pusa 1121)', current: 8100, prev: 8350, pct: '-3.0%' },
-                { crop: 'Cotton (MCU-5)', current: 7400, prev: 7100, pct: '+4.2%' },
-                { crop: 'Onions (Red)', current: 2200, prev: 2600, pct: '-15.4%' }
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between text-xs">
-                  <span className="w-40 font-semibold text-[#0b1c30] truncate">{item.crop}</span>
-                  <div className="flex-1 mx-4">
-                    <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden flex">
-                      <div
-                        className={`h-full ${
-                          item.pct.startsWith('+') ? 'bg-[#2d5a27]' : 'bg-[#ba1a1a]'
-                        }`}
-                        style={{ width: `${Math.min(100, (item.current / 9000) * 100)}%` }}
-                      />
-                    </div>
-                  </div>
-                  <div className="w-28 text-right font-mono font-bold text-[#0b1c30]">
-                    ₹{item.current.toLocaleString()}
-                    <span
-                      className={`ml-1.5 text-[10px] ${
-                        item.pct.startsWith('+') ? 'text-emerald-700' : 'text-red-600'
-                      }`}
-                    >
-                      {item.pct}
-                    </span>
-                  </div>
-                </div>
-              ))}
+            <div className="overflow-x-auto -mx-5 px-5">
+              <table className="w-full text-left text-xs sm:text-sm">
+                <thead>
+                  <tr className="border-b border-[#c2c9bb]/20 text-[11px] uppercase tracking-wider text-[#72796e] bg-slate-50/70">
+                    <th className="py-3 px-4 font-bold whitespace-nowrap">Region / District</th>
+                    <th className="py-3 px-4 font-bold whitespace-nowrap">Crop</th>
+                    <th className="py-3 px-4 font-bold whitespace-nowrap">Supply (Tons)</th>
+                    <th className="py-3 px-4 font-bold whitespace-nowrap">Demand (Tons)</th>
+                    <th className="py-3 px-4 font-bold whitespace-nowrap">Mandi Price</th>
+                    <th className="py-3 px-4 font-bold whitespace-nowrap">Direct Buyer Price</th>
+                    <th className="py-3 px-4 font-bold whitespace-nowrap text-right">Farmer Premium</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#c2c9bb]/15">
+                  {REGIONAL_MATRIX_DATA.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-[#0b1c30] whitespace-nowrap">
+                        {row.region}
+                      </td>
+                      <td className="py-3.5 px-4 font-medium text-slate-700 whitespace-nowrap">
+                        {row.crop}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-[#059669] whitespace-nowrap">
+                        {row.supply}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-[#4f46e5] whitespace-nowrap">
+                        {row.demand}
+                      </td>
+                      <td className="py-3.5 px-4 font-medium text-slate-700 font-mono whitespace-nowrap">
+                        {row.mandiPrice}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-[#059669] font-mono whitespace-nowrap">
+                        {row.directBuyerPrice}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-[#059669] font-mono whitespace-nowrap text-right">
+                        {row.farmerPremium}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
