@@ -131,7 +131,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {isFarmerActive && (
             <div className="space-y-1">
               <div className="px-3 py-1.5 text-[11px] uppercase tracking-wider text-[#72796e] font-bold">
-                Farmer Credentials
+                Farmer Workspace
               </div>
 
               <button

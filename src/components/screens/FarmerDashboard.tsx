@@ -95,7 +95,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-[#0b1c30] tracking-tight">
-              Farmer Credentials
+              Farmer Workspace
             </h1>
             <span className="px-2.5 py-0.5 rounded-full bg-[#eff4ff] text-[#154212] font-bold text-xs border border-[#c2c9bb]/40">
               Jai Kumar • Karnal, HR
