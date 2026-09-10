@@ -82,12 +82,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         >
           <img
             src={ASSETS.logo}
-            alt="Kisan Market"
+            alt="Kisan Bazaar"
             className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
           />
           <div className="flex flex-col">
             <span className="font-bold text-xl text-[#154212] tracking-tight leading-none">
-              Kisan Market
+              Kisan Bazaar
             </span>
             <span className="text-[10px] text-[#72796e] uppercase tracking-wider font-semibold mt-0.5">
               Agri Commerce Hub

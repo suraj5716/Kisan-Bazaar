@@ -221,5 +221,5 @@ app.get('/api/recent-activities', (req, res) => {
 const server = createServer(app);
 
 server.listen(3001, () => {
-  console.log('Kisan Market API running at http://localhost:3001');
+  console.log('Kisan Bazaar API running at http://localhost:3001');
 });

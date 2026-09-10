@@ -41,11 +41,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             onClick={() => onNavigate('landing')}
           >
             <img
-              alt="Kisan Market Logo"
+              alt="Kisan Bazaar Logo"
               className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
               src={ASSETS.logo}
             />
-            <span className="font-bold text-xl text-[#154212] tracking-tight">Kisan Market</span>
+            <span className="font-bold text-xl text-[#154212] tracking-tight">Kisan Bazaar</span>
           </div>
 
           <nav className="flex items-center gap-4 sm:gap-8">
@@ -333,7 +333,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               </h2>
               <p className="text-sm sm:text-base text-[#42493e]">
                 Whether you are growing the crop, aggregating harvests, or procuring for enterprise,
-                Kisan Market provides the tools you need.
+                Kisan Bazaar provides the tools you need.
               </p>
             </div>
 
@@ -588,7 +588,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       {/* Footer */}
       <footer className="w-full bg-[#e5eeff] py-8 border-t border-[#c2c9bb]/30">
         <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#72796e]">
-          <span>© 2024 Kisan Market. Better Prices, Better Decisions.</span>
+          <span>© 2024 Kisan Bazaar. Better Prices, Better Decisions.</span>
           <div className="flex gap-6 font-medium">
             <span className="cursor-pointer hover:text-[#0b1c30]">Privacy Policy</span>
             <span className="cursor-pointer hover:text-[#0b1c30]">Terms of Service</span>

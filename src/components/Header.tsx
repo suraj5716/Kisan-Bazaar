@@ -171,7 +171,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Help Popover */}
             {showHelp && (
               <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-[#c2c9bb]/40 p-4 z-50">
-                <h4 className="font-bold text-sm text-[#0b1c30] mb-2">Kisan Market Support</h4>
+                <h4 className="font-bold text-sm text-[#0b1c30] mb-2">Kisan Bazaar Support</h4>
                 <p className="text-xs text-[#42493e] leading-relaxed mb-3">
                   Need help with listing lots, mandi price intelligence, or logistics?
                 </p>

@@ -1,5 +1,5 @@
 {
-  "name": "Kisan Market",
+  "name": "Kisan Bazaar",
   "description": "Agricultural commerce and market intelligence platform for farmers, FPOs, and procurement buyers.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
