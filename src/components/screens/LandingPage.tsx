@@ -259,7 +259,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto mt-2">
                 <button
                   id="hero-get-started-btn"
-                  onClick={() => onNavigate('farmer-dashboard')}
+                  onClick={() => setShowLoginModal(true)}
                   className="w-full sm:w-auto px-6 py-3 bg-[#154212] hover:bg-[#2d5a27] text-white rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   <span>Get Started</span>
@@ -268,7 +268,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
                 <button
                   id="hero-login-dashboard-btn"
-                  onClick={() => onNavigate('farmer-dashboard')}
+                  onClick={() => setShowLoginModal(true)}
                   className="w-full sm:w-auto px-6 py-3 bg-[#d3e4fe] hover:bg-[#dce9ff] text-[#0b1c30] rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
                   Login to Dashboard
