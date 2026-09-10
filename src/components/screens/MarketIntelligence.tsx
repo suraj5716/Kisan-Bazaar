@@ -5,6 +5,8 @@ import {
   WAREHOUSE_OPTIONS,
   ASSETS
 } from '../../data/mockData';
+import { NetRealizationTable } from '../NetRealizationTable';
+import { RecommendationExplanation } from '../RecommendationExplanation';
 import {
   Sparkles,
   Bell,
@@ -205,57 +207,16 @@ export const MarketIntelligence: React.FC<MarketIntelligenceProps> = ({ onNaviga
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs sm:text-sm">
-              <thead>
-                <tr className="border-b border-[#c2c9bb]/20 text-[11px] uppercase tracking-wider text-[#72796e] bg-slate-50/50">
-                  <th className="py-3 px-5 font-bold">Market Name</th>
-                  <th className="py-3 px-3 font-bold">Price/Qtl</th>
-                  <th className="py-3 px-3 font-bold">Dist (km)</th>
-                  <th className="py-3 px-3 font-bold">Est. Transport</th>
-                  <th className="py-3 px-3 font-bold">Demand</th>
-                  <th className="py-3 px-5 font-bold text-right">Net Realization</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#c2c9bb]/20">
-                {MARKET_INTELLIGENCE_MANDIS.map((mandi, idx) => (
-                  <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3.5 px-5">
-                      <div className="font-semibold text-[#0b1c30]">{mandi.market}</div>
-                      {mandi.subtext && (
-                        <div className="text-[10px] text-[#72796e]">{mandi.subtext}</div>
-                      )}
-                    </td>
-                    <td className="py-3.5 px-3 font-bold text-[#0b1c30]">
-                      ₹{mandi.basePrice.toLocaleString()}
-                    </td>
-                    <td className="py-3.5 px-3 text-[#72796e]">{mandi.distanceKm} km</td>
-                    <td className="py-3.5 px-3 text-[#ba1a1a] font-medium">
-                      -₹{mandi.transportCost}
-                    </td>
-                    <td className="py-3.5 px-3">
-                      <span
-                        className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
-                          mandi.demand === 'HIGH'
-                            ? 'bg-emerald-100 text-emerald-800'
-                            : 'bg-amber-100 text-amber-800'
-                        }`}
-                      >
-                        {mandi.demand}
-                      </span>
-                    </td>
-                    <td className="py-3.5 px-5 text-right font-bold text-[#0b1c30]">
-                      {mandi.market === 'Ujjain Mandi' ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#bcf0ae]/60 text-[#154212] font-extrabold text-xs">
-                          ₹{mandi.netRealization.toLocaleString()} /q
-                        </span>
-                      ) : (
-                        <span>₹{mandi.netRealization.toLocaleString()} /q</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <NetRealizationTable mandis={MARKET_INTELLIGENCE_MANDIS} showStorage={false} />
+          </div>
+
+          <div className="mt-4">
+            <RecommendationExplanation
+              explanation={{
+                text: 'Ujjain Mandi offers the highest net realization after transport costs. Consider booking transport early to lock in current rates.',
+                highlight: 'Net gain of ₹60/q over Indore APMC after freight deduction'
+              }}
+            />
           </div>
         </div>
 

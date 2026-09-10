@@ -6,7 +6,8 @@ import {
   MandiComparisonItem,
   NegotiationItem,
   WarehouseOption,
-  RecentActivityItem
+  RecentActivityItem,
+  BuyerProfile
 } from '../types';
 
 export const ASSETS = {
@@ -342,3 +343,63 @@ export const RECENT_ACTIVITIES: RecentActivityItem[] = [
     colorType: 'primary'
   }
 ];
+
+export const BUYER_PROFILES: BuyerProfile[] = [
+  {
+    id: 'BP-1',
+    name: 'ITC Agri Procurement',
+    verified: true,
+    transactionCount: 342,
+    paymentCompletionRate: 98,
+    paymentDelays: 2,
+    disputes: 0,
+    rating: 4.9
+  },
+  {
+    id: 'BP-2',
+    name: 'Reliance Retail Agro',
+    verified: true,
+    transactionCount: 215,
+    paymentCompletionRate: 96,
+    paymentDelays: 4,
+    disputes: 1,
+    rating: 4.7
+  },
+  {
+    id: 'BP-3',
+    name: 'Adani Wilmar Agro',
+    verified: true,
+    transactionCount: 180,
+    paymentCompletionRate: 94,
+    paymentDelays: 3,
+    disputes: 2,
+    rating: 4.5
+  },
+  {
+    id: 'BP-4',
+    name: 'Sahyadri Farmers Hub',
+    verified: true,
+    transactionCount: 89,
+    paymentCompletionRate: 97,
+    paymentDelays: 1,
+    disputes: 0,
+    rating: 4.8
+  }
+];
+
+export const FPO_FARMER_LOTS = [
+  { farmerName: 'Ramesh Patil', crop: 'Wheat', quantity: 80, quality: 'Grade A', location: 'Nashik, MH' },
+  { farmerName: 'Sunil Jadhav', crop: 'Wheat', quantity: 65, quality: 'Grade A', location: 'Nashik, MH' },
+  { farmerName: 'Prakash Deshmukh', crop: 'Wheat', quantity: 55, quality: 'Grade A', location: 'Nashik, MH' },
+  { farmerName: 'Anil More', crop: 'Wheat', quantity: 90, quality: 'Grade A', location: 'Nashik, MH' },
+  { farmerName: 'Vijay Khot', crop: 'Soybean', quantity: 70, quality: 'Standard Yellow', location: 'Satara, MH' },
+  { farmerName: 'Mahesh Shinde', crop: 'Soybean', quantity: 50, quality: 'Standard Yellow', location: 'Satara, MH' },
+  { farmerName: 'Rajesh Patil', crop: 'Soybean', quantity: 45, quality: 'Standard Yellow', location: 'Satara, MH' },
+  { farmerName: 'Sanjay Jadhav', crop: 'Cotton', quantity: 60, quality: 'MCU-5', location: 'Rajkot, GJ' },
+  { farmerName: 'Dinesh Barot', crop: 'Cotton', quantity: 40, quality: 'MCU-5', location: 'Rajkot, GJ' },
+  { farmerName: 'Kiran Patel', crop: 'Cotton', quantity: 35, quality: 'MCU-5', location: 'Rajkot, GJ' }
+];
+
+export const STORAGE_COST_PER_QTL_DAY = 1.5;
+export const MANDI_CESS_RATE = 0.01;
+export const LOADING_CHARGE_PER_QTL = 15;

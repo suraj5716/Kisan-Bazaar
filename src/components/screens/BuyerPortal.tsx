@@ -7,6 +7,8 @@ import {
   ScreenTab
 } from '../../types';
 import { ASSETS } from '../../data/mockData';
+import { BuyerReliabilityBadge } from '../BuyerReliabilityBadge';
+import { getReliabilityForBuyer } from '../../services/buyerReliability';
 import {
   Plus,
   Search,
@@ -162,7 +164,9 @@ export const BuyerPortal: React.FC<BuyerPortalProps> = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {smartMatches.map((match) => (
+              {smartMatches.map((match) => {
+                const reliability = getReliabilityForBuyer(match.seller);
+                return (
                 <div
                   key={match.id}
                   className="bg-white rounded-2xl border border-[#c2c9bb]/30 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-all"
@@ -186,6 +190,11 @@ export const BuyerPortal: React.FC<BuyerPortalProps> = ({
                       <p className="text-xs text-[#72796e] mt-1">
                         {match.seller} • {match.location} ({match.distanceKm}km)
                       </p>
+                      {reliability && (
+                        <div className="mt-1.5">
+                          <BuyerReliabilityBadge score={reliability.score} label={reliability.label} />
+                        </div>
+                      )}
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
@@ -204,7 +213,8 @@ export const BuyerPortal: React.FC<BuyerPortalProps> = ({
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -295,6 +305,14 @@ export const BuyerPortal: React.FC<BuyerPortalProps> = ({
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Verified Buyer</span>
                   </div>
+                  {(() => {
+                    const rel = getReliabilityForBuyer('ITC Agri Procurement');
+                    return rel ? (
+                      <div className="mt-1">
+                        <BuyerReliabilityBadge score={rel.score} label={rel.label} />
+                      </div>
+                    ) : null;
+                  })()}
                 </div>
               </div>
             </div>

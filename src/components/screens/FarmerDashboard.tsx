@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { CropLot, MandiComparisonItem, ScreenTab, FarmerSubTab } from '../../types';
 import { ASSETS, FARMER_MANDIS, INITIAL_FARMER_OFFERS, FarmerIncomingOffer } from '../../data/mockData';
 import { FarmerNavBar } from '../FarmerNavBar';
+import { DecisionBanner } from '../DecisionBanner';
+import { SellDecisionPanel } from '../SellDecisionPanel';
+import { MarketSimulator } from '../MarketSimulator';
+import { BuyerReliabilityBadge } from '../BuyerReliabilityBadge';
+import { RecommendationExplanation } from '../RecommendationExplanation';
+import { evaluateSellDecision, getForecastPrice } from '../../services/decisionEngine';
+import { generateScenarios } from '../../services/marketSimulator';
+import { getReliabilityForBuyer } from '../../services/buyerReliability';
 import {
   Plus,
   Wheat,
@@ -67,6 +75,29 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
 
   // Sale timing state
   const [alertEnabled, setAlertEnabled] = useState(false);
+
+  // AI Decision Engine state
+  const primaryLot = cropLots[0];
+  const forecastPrice15 = getForecastPrice(2450, 15);
+  const sellDecision = useMemo(
+    () =>
+      evaluateSellDecision({
+        lot: primaryLot,
+        forecastPrice: forecastPrice15,
+        forecastDays: 15,
+        marketDemand: 'HIGH'
+      }),
+    [primaryLot, forecastPrice15]
+  );
+
+  const scenarios = useMemo(
+    () =>
+      generateScenarios({
+        lot: primaryLot,
+        currentSpotPrice: 2450
+      }),
+    [primaryLot]
+  );
 
   const handleOfferAction = (id: string, action: 'Accepted' | 'Declined' | 'Countered') => {
     setOffers((prev) =>
@@ -224,6 +255,10 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
               </span>
             </div>
           </div>
+
+          {/* AI Sell Decision Engine */}
+          <DecisionBanner decision={sellDecision} />
+          <SellDecisionPanel decision={sellDecision} />
 
           {/* Dual Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -738,11 +773,27 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
               </div>
             </div>
           </div>
+
+          {/* What-If Market Decision Simulator */}
+          <div className="bg-white rounded-2xl border border-[#c2c9bb]/30 shadow-xs p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Bot className="w-4 h-4 text-[#2d5a27]" />
+                  <h3 className="font-bold text-base text-[#0b1c30]">What-If Market Decision Simulator</h3>
+                </div>
+                <p className="text-xs text-[#42493e] mt-0.5">
+                  Compare different selling scenarios to find the optimal timing and channel
+                </p>
+              </div>
+              <span className="text-xs text-[#2d5a27] font-semibold bg-[#eff4ff] px-3 py-1 rounded-full">
+                {scenarios.length} Scenarios
+              </span>
+            </div>
+            <MarketSimulator scenarios={scenarios} />
+          </div>
         </div>
       )}
-
-      {/* ========================================================= */}
-      {/* SECTION 6: BUYER MATCHES */}
       {/* ========================================================= */}
       {subTab === 'buyer-matches' && (
         <div className="space-y-6">
@@ -793,7 +844,9 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                   escrowGuarantee: 'FPO Aggregation Contract',
                   deliveryLocation: 'Ambala Aggregation Hub (35 km)'
                 }
-              ].map((item, idx) => (
+              ].map((item, idx) => {
+                const reliability = getReliabilityForBuyer(item.buyer);
+                return (
                 <div
                   key={idx}
                   className="p-5 rounded-2xl border border-slate-200 hover:border-[#2d5a27] bg-white hover:bg-slate-50/60 transition-all space-y-3"
@@ -807,6 +860,10 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                       {item.matchScore}
                     </span>
                   </div>
+
+                  {reliability && (
+                    <BuyerReliabilityBadge score={reliability.score} label={reliability.label} />
+                  )}
 
                   <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
                     <span className="text-slate-500">Purchase Offer:</span>
@@ -827,7 +884,8 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                     </button>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

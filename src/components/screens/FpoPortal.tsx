@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ScreenTab } from '../../types';
+import { FpoAggregationPanel } from '../FpoAggregationPanel';
+import { analyzeAggregationOpportunities } from '../../services/fpoAggregation';
 import {
   Users,
   Building2,
@@ -19,6 +21,8 @@ interface FpoPortalProps {
 
 export const FpoPortal: React.FC<FpoPortalProps> = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState<'pools' | 'contracts' | 'payouts'>('pools');
+
+  const aggregationOpportunities = useMemo(() => analyzeAggregationOpportunities(), []);
 
   const memberPools = [
     {
@@ -191,6 +195,9 @@ export const FpoPortal: React.FC<FpoPortalProps> = ({ onNavigate }) => {
           </table>
         </div>
       </div>
+
+      {/* AI-Powered FPO Aggregation */}
+      <FpoAggregationPanel opportunities={aggregationOpportunities} />
     </div>
   );
 };
