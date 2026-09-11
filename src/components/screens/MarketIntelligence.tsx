@@ -213,8 +213,8 @@ export const MarketIntelligence: React.FC<MarketIntelligenceProps> = ({ onNaviga
           <div className="mt-4">
             <RecommendationExplanation
               explanation={{
-                text: 'Ujjain Mandi offers the highest net realization after transport costs. Consider booking transport early to lock in current rates.',
-                highlight: 'Net gain of ₹60/q over Indore APMC after freight deduction'
+                text: 'Solapur Mandi offers the highest net realization after transport costs. Consider booking transport early to lock in current rates.',
+                highlight: 'Net gain of ₹60/q over Nagpur APMC after freight deduction'
               }}
             />
           </div>
@@ -266,14 +266,14 @@ export const MarketIntelligence: React.FC<MarketIntelligenceProps> = ({ onNaviga
           <div className="bg-white rounded-2xl border border-[#c2c9bb]/30 shadow-xs overflow-hidden">
             <div className="relative h-40 w-full">
               <img
-                src={ASSETS.satelliteUjjain}
-                alt="Route to Ujjain Mandi"
+                src={ASSETS.satelliteSolapur}
+                alt="Route to Solapur Mandi"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-3 left-3 right-3 text-white">
                 <div className="flex items-center gap-1 text-xs font-bold">
-                  <Navigation className="w-3.5 h-3.5 text-emerald-400" /> Route to Ujjain Mandi
+                  <Navigation className="w-3.5 h-3.5 text-emerald-400" /> Route to Solapur Mandi
                 </div>
                 <div className="text-[11px] text-slate-200">
                   Est. 45 mins • Light highway traffic

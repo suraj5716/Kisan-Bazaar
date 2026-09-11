@@ -307,7 +307,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-slate-100 flex items-center justify-between">
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-[#72796e] uppercase tracking-wider">
-                      Wheat (Lok-1) • Indore Mandi
+                      Wheat (Lok-1) • Nagpur Mandi
                     </span>
                     <div className="flex items-baseline gap-1.5 mt-0.5">
                       <span className="text-2xl font-bold text-[#0b1c30]">₹2,450</span>

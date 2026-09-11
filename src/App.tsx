@@ -127,7 +127,7 @@ export default function App() {
                   title: `${lot.crop} (${lot.grade})`,
                   crop: lot.crop,
                   seller: lot.farmerName || 'Jai Kumar',
-                  location: lot.location || 'Karnal, HR',
+                  location: lot.location || 'Nashik, MH',
                   pricePerQuintal: lot.bestOfferRate || '₹2,740/q',
                   quantity: lot.quantity,
                   quality: `Moisture: ${lot.moisture || '10%'}`

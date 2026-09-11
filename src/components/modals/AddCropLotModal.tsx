@@ -18,7 +18,7 @@ export const AddCropLotModal: React.FC<AddCropLotModalProps> = ({
   const [quantityVal, setQuantityVal] = useState<number>(120);
   const [targetPrice, setTargetPrice] = useState<number>(2750);
   const [moisture, setMoisture] = useState('11.0%');
-  const [location, setLocation] = useState('Karnal, HR');
+  const [location, setLocation] = useState('Nashik, MH');
 
   if (!isOpen) return null;
 

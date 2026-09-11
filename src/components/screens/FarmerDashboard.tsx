@@ -69,7 +69,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
 
   // Logistics state
   const [vehicleType, setVehicleType] = useState('Tata 407 (4 Tons)');
-  const [destinationMandi, setDestinationMandi] = useState('Narela Mandi (42 km)');
+  const [destinationMandi, setDestinationMandi] = useState('Nashik APMC Mandi (42 km)');
   const [logisticsBooked, setLogisticsBooked] = useState(false);
   const [warehouseBooked, setWarehouseBooked] = useState<string | null>(null);
 
@@ -129,7 +129,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
               Farmer Workspace
             </h1>
             <span className="px-2.5 py-0.5 rounded-full bg-[#eff4ff] text-[#154212] font-bold text-xs border border-[#c2c9bb]/40">
-              Jai Kumar • Karnal, HR
+              Jai Kumar • Nashik, MH
             </span>
           </div>
           <p className="text-sm text-[#42493e] mt-0.5">
@@ -251,7 +251,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
               </div>
               <div className="text-2xl font-extrabold text-[#154212] mt-1">₹2,850 <span className="text-xs text-[#72796e] font-normal">/Qtl</span></div>
               <span className="text-[11px] text-[#72796e] font-medium block mt-1">
-                Wheat • Azadpur Mandi
+                Wheat • Pune APMC Mandi
               </span>
             </div>
           </div>
@@ -396,7 +396,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
               <div className="bg-white rounded-2xl border border-[#c2c9bb]/30 shadow-xs overflow-hidden">
                 <div className="relative h-40 w-full bg-slate-100">
                   <img
-                    src={ASSETS.satelliteKarnal}
+                    src={ASSETS.satelliteNashik}
                     alt="Farm Satellite View"
                     className="w-full h-full object-cover"
                   />
@@ -404,7 +404,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                   <div className="absolute bottom-3 left-3 text-white">
                     <div className="flex items-center gap-1 text-xs font-bold">
                       <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                      Karnal Agricultural Zone (Plot #12)
+                      Nashik Agricultural Zone (Plot #12)
                     </div>
                     <span className="text-[10px] text-slate-200">Soil Moisture: 22% • Optimal</span>
                   </div>
@@ -752,7 +752,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                 <span className="text-xs font-bold text-slate-500 uppercase">Mandi Arrivals Deficit</span>
                 <div className="text-xl font-extrabold text-[#ba1a1a] mt-1">-18% Drop</div>
                 <p className="text-xs text-slate-600 mt-1">
-                  Heavy showers delayed harvesting in Western UP and MP, creating temporary supply scarcity.
+                  Heavy showers delayed harvesting in Western Maharashtra and Vidarbha, creating temporary supply scarcity.
                 </p>
               </div>
 
@@ -818,7 +818,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                   matchScore: '96% Match',
                   buyingRate: '₹2,750 /q',
                   escrowGuarantee: '100% Escrow Protected',
-                  deliveryLocation: 'Narela Mandi Warehouse (42 km)'
+                  deliveryLocation: 'Nashik APMC Warehouse (42 km)'
                 },
                 {
                   buyer: 'Reliance Retail Agro',
@@ -826,7 +826,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                   matchScore: '92% Match',
                   buyingRate: '₹3,850 /q',
                   escrowGuarantee: 'Direct Mill Delivery Payout',
-                  deliveryLocation: 'Panipat Depot (28 km)'
+                  deliveryLocation: 'Satara Depot (28 km)'
                 },
                 {
                   buyer: 'Adani Wilmar Agro',
@@ -834,7 +834,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                   matchScore: '89% Match',
                   buyingRate: '₹5,750 /q',
                   escrowGuarantee: 'Immediate Weighbridge Transfer',
-                  deliveryLocation: 'Karnal Processing Center (8 km)'
+                  deliveryLocation: 'Nashik Processing Center (8 km)'
                 },
                 {
                   buyer: 'Sahyadri Farmers Hub',
@@ -842,7 +842,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                   matchScore: '85% Match',
                   buyingRate: '₹4,300 /q',
                   escrowGuarantee: 'FPO Aggregation Contract',
-                  deliveryLocation: 'Ambala Aggregation Hub (35 km)'
+                  deliveryLocation: 'Pune Aggregation Hub (35 km)'
                 }
               ].map((item, idx) => {
                 const reliability = getReliabilityForBuyer(item.buyer);
@@ -1043,9 +1043,9 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
                     onChange={(e) => setDestinationMandi(e.target.value)}
                     className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-medium"
                   >
-                    <option value="Narela Mandi (42 km)">Narela Mandi (42 km)</option>
-                    <option value="Azadpur APMC (65 km)">Azadpur APMC (65 km)</option>
-                    <option value="Indore Hub (Direct Sourcing)">Indore Hub (Direct Sourcing)</option>
+                    <option value="Nashik APMC Mandi (42 km)">Nashik APMC Mandi (42 km)</option>
+                    <option value="Pune APMC (65 km)">Pune APMC (65 km)</option>
+                    <option value="Nagpur Hub (Direct Sourcing)">Nagpur Hub (Direct Sourcing)</option>
                   </select>
                 </div>
 

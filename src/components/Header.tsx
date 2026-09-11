@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
     {
       id: 2,
       title: 'Wheat price surge alert',
-      desc: 'Indore Mandi base price jumped +4.2% today.',
+      desc: 'Nagpur Mandi base price jumped +4.2% today.',
       time: '1h ago',
       unread: true
     },

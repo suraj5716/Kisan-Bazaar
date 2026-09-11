@@ -33,7 +33,7 @@ interface RealizationMatrixRow {
 
 const REGIONAL_MATRIX_DATA: RealizationMatrixRow[] = [
   {
-    region: 'Punjab - Ludhiana',
+    region: 'Maharashtra - Nashik',
     crop: 'Wheat',
     supply: '1850 T',
     demand: '2400 T',
@@ -42,7 +42,7 @@ const REGIONAL_MATRIX_DATA: RealizationMatrixRow[] = [
     farmerPremium: '+₹130/q (5%)'
   },
   {
-    region: 'Punjab - Tarn Taran',
+    region: 'Maharashtra - Pune',
     crop: 'Paddy',
     supply: '2200 T',
     demand: '3100 T',
@@ -51,7 +51,7 @@ const REGIONAL_MATRIX_DATA: RealizationMatrixRow[] = [
     farmerPremium: '+₹130/q (3%)'
   },
   {
-    region: 'Haryana - Karnal',
+    region: 'Maharashtra - Nagpur',
     crop: 'Wheat',
     supply: '1400 T',
     demand: '2800 T',
@@ -60,7 +60,7 @@ const REGIONAL_MATRIX_DATA: RealizationMatrixRow[] = [
     farmerPremium: '+₹80/q (3%)'
   },
   {
-    region: 'MP - Indore',
+    region: 'Maharashtra - Aurangabad',
     crop: 'Soybean',
     supply: '3500 T',
     demand: '4200 T',

@@ -51,7 +51,7 @@ export const FpoPortal: React.FC<FpoPortalProps> = ({ onNavigate }) => {
       totalQuantity: '160 MT',
       memberFarmers: 19,
       avgMoisture: '7.8%',
-      aggregatedMandi: 'Rajkot Depo',
+      aggregatedMandi: 'Yavatmal Depo',
       currentBid: '₹7,650 /q (Vardhman Textiles)',
       status: 'Dispatching'
     }
